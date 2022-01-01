@@ -6,12 +6,8 @@ router.get('/new', (req,res)=>{
   res.render('new',{article:new Article()})
 })
 
-
-
-
 //Create
 router.post('/', async (req,res)=>{
-  console.log('哈哈有到這嗎')
   console.log(req.body)
   // const article = new Article({
   //     title: req.body.title,
@@ -29,9 +25,9 @@ router.post('/', async (req,res)=>{
 })
 
 //read特定article
-router.get('/:id', async (req,res)=>{
+router.get('/:slug', async (req,res)=>{ //:id 改成slug
   try{
-    const article = await Article.findById(req.params.id).lean()
+    const article = await Article.findOne({slug:req.params.slug}).lean() //findById(req.params.id) 改成findOne({slug:req.params.slug})
     if(article===null) res.redirect('/')
     res.render('show', {article})
   }catch(e){
@@ -60,10 +56,9 @@ router.put('/:id', (req, res)=>{
       article.markdown = markdown
       return article.save()
     })
-    .then(() => res.redirect(`/articles/${_id}`))
+    .then((article) => res.redirect(`/articles/${article.slug}`))
     .catch(error => console.log(error))
 })
-
 
 //delete
 router.delete('/:id', (req, res) => {

@@ -25,9 +25,9 @@ router.post('/', async (req,res)=>{
 })
 
 //read特定article
-router.get('/:slug', async (req,res)=>{ //:id 改成slug
+router.get('/:_id', async (req,res)=>{ //:id 改成title,不需要使用slug,https://stackoverflow.com/questions/8573586/how-can-i-use-a-slug-with-express-and-node-js
   try{
-    const article = await Article.findOne({slug:req.params.slug}).lean() //findById(req.params.id) 改成findOne({slug:req.params.slug})
+    const article = await Article.findOne({_id:req.params._id}).lean() //findById(req.params.id) 改成findOne({slug:req.params.slug})
     if(article===null) res.redirect('/')
     res.render('show', {article})
   }catch(e){
@@ -56,7 +56,10 @@ router.put('/:id', (req, res)=>{
       article.markdown = markdown
       return article.save()
     })
-    .then((article) => res.redirect(`/articles/${article.slug}`))
+  // const {title,description,markdown} = req.body   //和new一樣才能將markdown轉成html
+  //   Article.create({...req.body})
+  //   res.redirect('/')
+    .then((article) => res.redirect(`/articles/${article._id}`))
     .catch(error => console.log(error))
 })
 

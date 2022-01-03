@@ -14,11 +14,12 @@
   "dependencies": {
     "body-parser": "^1.19.1",
     "dayjs": "^1.10.7",
+    "dompurify": "^2.3.4",
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
+    "jsdom": "^19.0.0",
     "marked": "^4.0.8",
     "method-override": "^3.0.0",
-    "mongoose": "^5.9.7",
-    "slugify": "^1.6.4"
+    "mongoose": "^5.9.7"
   }
 }

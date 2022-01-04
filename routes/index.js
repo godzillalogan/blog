@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const home = require('./modules/home')
-const articleRouter = require('./modules/articles')
+const article = require('./modules/articles')
+const users = require('./modules/users')  // add this
 
 router.use('/',home)
-router.use('/articles',articleRouter)
-
+router.use('/articles', article)
+router.use('/users', users)
 
 
 // 匯出路由器

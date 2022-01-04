@@ -4,8 +4,8 @@ const { engine } = require('express-handlebars');
 const app = express()
 const PORT = 3000
 const methodOverride = require('method-override')  // 載入 method-override
-const Article = require('./models/article')
-articleRouter = require('./routes/articles')
+const routes = require('./routes')
+
 
 require('./config/mongoose')
 
@@ -19,22 +19,13 @@ app.engine('hbs', engine({extname: '.hbs',helpers: require('./hbsHelpers/handleb
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
-app.get('/', async (req,res)=>{
-  const articles = await Article.find().lean()
-  .sort({createdAt:'desc'})
-  res.render('index',{ articles })
-})
+app.use(routes)
 
-app.use('/articles',articleRouter)
+
 
 app.listen(PORT, ()=>{
   console.log('App is running on http://localhost:3000')
 })
-
-
-
-
-
 
 
 

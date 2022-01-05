@@ -7,6 +7,7 @@ const PORT = 3000
 const methodOverride = require('method-override')  // 載入 method-override
 const routes = require('./routes')
 
+const usePassport = require('./config/passport') // 載入設定檔，要寫在 express-session 以後
 
 require('./config/mongoose')
 
@@ -24,6 +25,8 @@ app.use(session({
 }))
 app.set('view engine', 'hbs');
 app.set('views', './views');
+
+usePassport(app) // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 
 app.use(routes)
 

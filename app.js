@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 // const bodyParser = require('body-parser')  //新版express以內建body-parser
 const { engine } = require('express-handlebars');
 const app = express()
@@ -16,6 +17,11 @@ app.use(express.urlencoded({ extended:false}))  //Express 升級到了 4.17.1。
 app.use(methodOverride('_method'))// 設定每一筆請求都會透過 methodOverride 進行前置處理
 
 app.engine('hbs', engine({extname: '.hbs',helpers: require('./hbsHelpers/handlebarsHelpers')}));
+app.use(session({
+  secret: 'ThisIsMySecret',//這個參數是 session 用來驗證 session id 的字串。這組字串由伺服器設定，不會洩露給客戶端。
+  resave: false,//當設定為 true 時，會在每一次與使用者互動後，強制把 session 更新到 session store 裡。
+  saveUninitialized: true//強制將未初始化的 session 存回 session store。
+}))
 app.set('view engine', 'hbs');
 app.set('views', './views');
 

@@ -13,6 +13,11 @@ router.post('/login', passport.authenticate('local',{
   failureRedirect: '/users/login' //失敗的時候去哪裡
 }))
 
+router.get('/logout', (req, res) => {
+  req.logout() //Passport.js 提供的函式，會幫你清除 session
+  res.redirect('/users/login')
+})
+
 router.get('/register', (req, res) => {
   res.render('register')
 })

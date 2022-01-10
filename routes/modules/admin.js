@@ -1,15 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const Article = require('../../models/article');
+const User = require('../../models/user');
 
 router.get('/articles', async (req,res)=>{
   const articles = await Article.find().lean()
   .sort({createdAt:'desc'})
   res.render('admin/articles',{articles})
-})
-
-router.get('/users', (req,res)=>{
-  res.render('admin/users')
 })
 
 router.get('/articles/new', (req,res)=>{
@@ -71,5 +68,16 @@ router.delete('/articles/:id', (req, res) => {
     .then(() => res.redirect('/admin/articles'))
     .catch(error => console.log(error))
 })
+
+
+////user
+router.get('/users', async (req,res)=>{
+  const users = await User.find().lean()
+  .sort({createdAt:'asc'})
+  res.render('admin/users',{users})
+})
+
+
+
 
 module.exports = router

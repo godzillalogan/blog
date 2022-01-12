@@ -9,7 +9,7 @@ router.get('/login', (req, res) => {
 
 
 router.post('/login', passport.authenticate('local',{
-  successRedirect: '/',  //成功的時候去哪裡
+  successRedirect: '/admin/articles',  //成功的時候去哪裡
   failureRedirect: '/users/login' //失敗的時候去哪裡
 }))
 
@@ -41,7 +41,7 @@ router.post('/register', async(req, res) =>{
         email,
         password
       })
-      res.redirect('/')
+      res.redirect('/users/login')
     }
   }catch(err){
     console.log(err)

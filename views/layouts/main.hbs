@@ -10,19 +10,24 @@
 </head>
 
 <body>
-  <header>
+  {{!-- <header>
     <!-- As a link -->
     <nav class="navbar navbar-dark bg-secondary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">{{#if isAuthenticated}}{{ user.name}}'s {{/if}}西洋音樂Blog</a>
-        {{#if isAuthenticated}}
-        <a href="/users/logout" class="btn btn-primary">Logout</a>
-        {{else}}
-        <a href="/users/login" class="btn btn-primary">Login</a>
-        {{/if}}
+        <a class="navbar-brand" href="/">
+          西洋音樂Blog
+        </a>
+        <div class="d-flex">
+          {{#if isAuthenticated}}<div class="fs-4 text-light me-3">Hello, {{ user.name}} </div>{{/if}}
+          {{#if isAuthenticated}}
+            <a {{#if (constainsAdmin url)}}href="admin/users/logout"{{else}}href="/users/logout" {{/if}}class="btn btn-primary">Logout</a>
+          {{else}}
+            <a href="/users/login" class="btn btn-primary">Login</a>
+          {{/if}}
+        </div>
       </div>
     </nav> 
-  </header>
+  </header> --}}
   <div class="container">
     {{{ body }}}
   </div>

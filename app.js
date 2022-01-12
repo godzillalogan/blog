@@ -29,6 +29,16 @@ app.set('views', './views');
 
 usePassport(app) // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 
+app.use((req, res, next) => { //需在usePassport(app) 之後、app.use(routes) 之前
+  // console.log('req.user:',req.user)//req.user 是在反序列化的時候，取出的 user 資訊，之後會放在 req.user 裡以供後續使用
+  res.locals.isAuthenticated = req.isAuthenticated() //res.locals：所有樣板都可以使用的變數
+  res.locals.user = req.user
+  // res.locals.url = req.url
+  next()
+})
+
+
+
 app.use(routes)
 
 

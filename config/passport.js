@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy //和一般的引用不太一樣，需要再多傳入一個 Strategy 物件
 const User = require('../models/user')//載入 User model
+const bcrypt = require('bcryptjs')
 
 module.exports = app => {
   // 初始化 Passport 模組
@@ -13,10 +14,13 @@ module.exports = app => {
         if (!user) { //user不存在
           return done(null, false, { message: 'That email is not registered!' })
         }
-        if (user.password !== password) { //user存在，但密碼不正確
-          return done(null, false, { message: 'Email or Password incorrect.' })
-        }
-        return done(null, user) //使用者存在，且密碼一樣，登入成功
+        //第一個參數是使用者的輸入值，而第二個參數是資料庫裡的雜湊值，bcrypt 會幫我們做比對，並回傳布林值，在文中我們用 isMatch 來代表。
+        return bcrypt.compare(password,user.password).then(isMatch =>{
+          if(!isMatch){
+            return done(null, false, {message:'Email or Password incorrect.'})
+          }
+          return done(null, user)
+        })
       })
       .catch(err => done(err, false))
   }))

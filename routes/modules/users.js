@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../../models/user');
 const passport = require('passport') //// 引用 passport
+const bcrypt = require('bcryptjs')
 
 router.get('/login', (req, res) => {
   res.render('login')
@@ -54,10 +55,15 @@ router.post('/register', async(req, res) =>{
         confirmPassword
       })
     }else{
-      User.create({
+      //https://www.npmjs.com/package/bcryptjs，官方的寫法genSaltSync
+      const salt = bcrypt.genSaltSync(10)// 產生「鹽」，並設定複雜度係數為 10
+      const hash = bcrypt.hashSync(password, salt)
+      // console.log('salt:',salt)
+      // console.log('hash:',hash)
+      await User.create({
         name,
         email,
-        password
+        password : hash // 用雜湊值取代原本的使用者密碼
       })
       res.redirect('/users/login')
     }

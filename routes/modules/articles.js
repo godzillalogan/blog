@@ -4,6 +4,18 @@ const router = express.Router();
 
 
 
+
+//read特定article
+router.get('/', async (req,res)=>{ //:id 改成title,不需要使用slug,https://stackoverflow.com/questions/8573586/how-can-i-use-a-slug-with-express-and-node-js
+  try{
+     const articles = await Article.find().lean()
+    .sort({createdAt:'desc'})
+    res.render('articles',{ articles })
+  }catch(e){
+    console.log(e)
+  }
+})
+
 //read特定article
 router.get('/:_id', async (req,res)=>{ //:id 改成title,不需要使用slug,https://stackoverflow.com/questions/8573586/how-can-i-use-a-slug-with-express-and-node-js
   try{

@@ -1,10 +1,14 @@
-<h1 class="mb-4">{{article.title}}</h1>
-<div class="text-muted mb-2">
-  {{dateFormat article.createdAt}}
-</div>
-<a href="/" class="btn btn-secondary">All Articles</a>
-{{!-- <a href="/articles/edit/{{article._id}}"  class="btn btn-primary">Edit</a> --}}
-<div>
-  {{!-- 三個{{{}}}把html轉成文字 --}}
-  {{{article.sanitizedHtml}}}  
+<div id="vantajs-bg">
+  <div class="single-article">
+    <h1 class="mb-4">{{article.title}}</h1>
+    <div class="text-muted mb-2">
+      {{dateFormat article.createdAt}}
+    </div>
+    <a href="/" class="btn btn-secondary">All Articles</a>
+    {{!-- <a href="/articles/edit/{{article._id}}"  class="btn btn-primary">Edit</a> --}}
+    <div>
+      {{!-- 三個{{{}}}把html轉成文字 --}}
+      {{{article.sanitizedHtml}}}  
+    </div>
+  </div>
 </div>

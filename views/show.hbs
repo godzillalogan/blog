@@ -1,4 +1,86 @@
-<div id="vantajs-bg">
+{{> header}}
+
+
+
+<section class="container">
+  <div class="layout-2 row">
+    <div class="col-8">
+      <article id="post">
+          <!-- article heading -->
+          <div class="heading text-center">
+            {{!-- <div class="category">
+              <a href="" class="nav-link">Travel</a>
+            </div> --}}
+            <div class="title">
+              <h2 class="text-title text-dark display-1">{{article.title}}</h2>
+            </div>
+            <div class="meta">
+              {{!-- <a href="#" class="link display-2 text-secondary px-1">
+                <i class="fas fa-user text-primary"></i>
+                </i>
+                </i>John HAHAHA
+              </a> --}}
+              <a href="#" class="link display-2 text-secondary px-1">
+                <i class="fas fa-clock text-primary"></i>
+                </i>
+                </i>{{dateFormat article.createdAt}}
+              </a>
+              {{!-- <a href="#" class="link display-2 text-secondary px-1">
+                <i class="fas fa-comments text-primary"></i>
+                </i>
+                </i>12
+              </a> --}}
+            </div>
+          </div>
+
+          <!-- thumbnail -->
+          <div class="thumbnail mt-3">
+            <img src="./assets/img1.jpg" class="thumbnail" alt="">
+          </div>
+
+          <!-- content start -->
+          <div class="content text-dark-display-2 secondary-title mt-3">
+            {{{article.sanitizedHtml}}}
+          </div>
+          <!-- content end -->
+
+        </article>
+      </div>
+      <div class="col-4">
+            <aside id="sidebar" class="px-1 mt-3">
+              <!-- categories -->
+              <section class="categories">
+                <h2 class="text-center text-dark mb-3">Categories</h2>
+                <a href="" class="d-flex justify-content-between text-dark">
+                  <span>Design</span>
+                  <span>5</span>
+                </a>
+                <a href="" class="d-flex justify-content-between text-dark">
+                  <span>Graphic</span>
+                  <span>8</span>
+                </a>
+                <a href="" class="d-flex justify-content-between text-dark">
+                  <span>Illustration</span>
+                  <span>3</span>
+                </a>
+                <a href="" class="d-flex justify-content-between text-dark">
+                  <span>Fashion</span>
+                  <span>2</span>
+                </a>
+              </section>
+            </aside>
+      </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+{{!-- <div id="vantajs-bg">
   <div class="single-article">
     <h1 class="mb-4">{{article.title}}</h1>
     <div class="text-muted mb-2">
@@ -6,9 +88,9 @@
     </div>
     <a href="/" class="btn btn-secondary">All Articles</a>
     {{!-- <a href="/articles/edit/{{article._id}}"  class="btn btn-primary">Edit</a> --}}
-    <div>
+    {{!-- <div> --}}
       {{!-- 三個{{{}}}把html轉成文字 --}}
-      {{{article.sanitizedHtml}}}  
+      {{!-- {{{article.sanitizedHtml}}}  
     </div>
   </div>
-</div>
+</div>  --}}

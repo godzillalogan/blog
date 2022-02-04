@@ -1,0 +1,51 @@
+*{
+  font-family: 微軟正黑體;
+  margin:0;
+  padding:0;
+}
+
+body{
+  overflow:auto;
+}
+
+#vantajs-bg{
+  width: 100%;
+  min-height: 1000px;
+}
+
+.grid{ 
+  display:grid;
+  grid-template-columns:1.5fr 9.5fr 0fr;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  margin:0px;
+}
+
+.buttonList {
+  margin-top: 5;
+}
+
+.fixed{
+  position:fixed;
+}
+
+.color-blue{
+  color: #5a91e8;
+}
+
+.color-gray{
+  color: #657786;
+}
+
+#logo{
+  width: 50px;
+}
+.orange{
+  background-color:#FF6600;
+  border-color: #FF6600;
+}

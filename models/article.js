@@ -30,6 +30,9 @@ const articleSchema = new mongoose.Schema({
   //   require: true,
   //   unique: true
   // },
+  image:{
+    type: String
+  },
   sanitizedHtml:{
     type: String,
     require: true

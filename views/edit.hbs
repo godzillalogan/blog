@@ -37,7 +37,7 @@
       </div>
       <div>
         <h1 class="mb-4">Edit Article</h1>
-        <form action="/admin/articles/{{article._id}}?_method=PUT" method="POST">
+        <form action="/admin/articles/{{article._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
           {{>formFields}}
         </form>
       </div>

@@ -1,3 +1,4 @@
+const path = require('path') // 引入 path 套件
 const express = require('express')
 const session = require('express-session')
 // const bodyParser = require('body-parser')  //新版express以內建body-parser
@@ -18,8 +19,9 @@ app.use(express.urlencoded({ extended:false}))  //Express 升級到了 4.17.1。
 
 app.use(methodOverride('_method'))// 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(express.static('public'))//靜態檔案
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 
-app.engine('hbs', engine({extname: '.hbs',helpers: require('./hbsHelpers/handlebarsHelpers')}));
+app.engine('hbs', engine({extname: '.hbs',helpers: require('./helpers/handlebarsHelpers')}));
 app.use(session({
   secret: 'ThisIsMySecret',//這個參數是 session 用來驗證 session id 的字串。這組字串由伺服器設定，不會洩露給客戶端。
   resave: false,//當設定為 true 時，會在每一次與使用者互動後，強制把 session 更新到 session store 裡。

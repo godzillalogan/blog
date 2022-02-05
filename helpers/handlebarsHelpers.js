@@ -8,4 +8,7 @@ module.exports={
     const word = 'admin'
     return a.includes(word)
   },
+  noImage: function(a){
+    return a ? a: 'https://i.imgur.com/jV5OZrw.png'
+  }
 }

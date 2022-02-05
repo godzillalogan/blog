@@ -45,9 +45,11 @@
             </div>
 
             <!-- thumbnail -->
+            {{#if article.image}}
             <div class="thumbnail mt-3">
-              <img src="./assets/img1.jpg" class="thumbnail" alt="">
+              <img src="{{article.image}}" class="thumbnail" alt="">
             </div>
+            {{/if}}
 
             <!-- content start -->
             <div class="content text-dark-display-2 secondary-title mt-3">

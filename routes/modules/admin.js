@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Article = require('../../models/article');
 const User = require('../../models/user');
+const upload = require('../../middleware/multer') // 載入 multer
+const { localFileHandler } = require('../../helpers/file-helpers') // 將 file-helper 載進來
 
 router.get('/articles', async (req,res)=>{
   const articles = await Article.find().lean()
@@ -14,7 +16,7 @@ router.get('/articles/new', (req,res)=>{
 })
 
 //Create
-router.post('/articles', async (req,res)=>{
+router.post('/articles', upload.single('image'), async (req,res)=>{
   console.log(req.body)
   // const article = new Article({
   //     title: req.body.title,
@@ -23,7 +25,10 @@ router.post('/articles', async (req,res)=>{
   // });
   try{
     const {title,description,markdown} = req.body
-    Article.create({...req.body})
+    const{file} = req
+    const filePath = await localFileHandler(file)
+
+    Article.create({...req.body, image:filePath || null})
     res.redirect('/admin/articles')
   } catch(e){
     console.log(e)
@@ -43,21 +48,29 @@ router.get('/articles/edit/:id', async (req, res) => {
 })
 
 //edit article
-router.put('/articles/:id', (req, res)=>{
+router.put('/articles/:id', upload.single('image'), async (req, res)=>{
+
+  try{
   const _id = req.params.id
   const { title,description,markdown } = req.body
-  return Article.findOne({ _id})
-    .then(article => {
-      article.title = title
-      article.description = description
-      article.markdown = markdown
-      return article.save()
-    })
+  const { file } = req // 把檔案取出來
+ 
+  const article = await Article.findOne({ _id})
+  const filePath = await localFileHandler(file) // 把檔案傳到 file-helper 處理 
+ 
+  article.title = title
+  article.description = description
+  article.markdown = markdown
+  article.image = filePath || article.image 
+  await article.save()
+  res.redirect('/admin/articles')
+  }catch(e){
+    console.log(e)
+    res.redirect(`/admin/articles`)
+  }
   // const {title,description,markdown} = req.body   //和new一樣才能將markdown轉成html
   //   Article.create({...req.body})
   //   res.redirect('/')
-    .then((article) => res.redirect(`/admin/articles`))
-    .catch(error => console.log(error))
 })
 
 //delete

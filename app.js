@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended:false}))  //Express 升級到了 4.17.1。
 app.use(methodOverride('_method'))// 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(express.static('public'))//靜態檔案
 app.use('/upload', express.static(path.join(__dirname, 'upload')))
+app.use('/helpers', express.static(path.join(__dirname, 'helpers'))) //index的js檔案
 
 app.engine('hbs', engine({extname: '.hbs',helpers: require('./helpers/handlebarsHelpers')}));
 app.use(session({

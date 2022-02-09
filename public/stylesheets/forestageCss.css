@@ -243,6 +243,35 @@ a{
 }
 /* navigation menu end*/
 
+/* Main Section start*/
+
+#site-main{
+  margin-top:8em;
+}
+
+#posts{
+  margin-bottom: 5em;
+}
+
+.grid{
+  margin:0 auto;
+}
+
+.grid .grid-item{
+  /* calc() 是一個 CSS function 作用於屬性設定是數值的時候可以進行加減乘除的運算 */
+  width: calc(33.333% - 20px);
+  margin-bottom:3em;
+}
+
+.swiper {
+  width: 1000px;
+  height: 300px;
+}
+
+
+/* Main Section end*/
+
+
 /* articles page start */
 .card{
   display:flex;

@@ -11,6 +11,67 @@
 <body>
   {{> header}}
 
+<!-- Main Site start-->  
+  <main id="site-main">
+    <!-- Blog Post Section -->
+      <section id="posts">
+        <div class="container">
+          <div class="grid">
+            <!-- articles start-->
+              {{#articles}}
+              <div class="grid-item">
+                <article class="article">
+                  <div class="card-index">
+                    <div class="overflow-img">
+                      <a href="/articles/{{this._id}}">
+                        <img src="{{noImage this.image}}" class="img-fluid" alt="">
+                      </a>
+                    </div>
+                    <div class="card-body text-center px-1">
+                      <a href="/articles/{{this._id}}" class="text-title dsiplay-1 text-dark">
+                        {{this.title}} 
+                      </a>
+                      <p class="secondary-title text-secondary display-3">
+                        <span><i class="far fa-clock text-primary"></i>{{dateFormat this.createdAt}}</span>
+                        {{!-- <span><i class="far fa-comments text-primary"></i>12</span> --}}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+               {{/articles}}
+            <!-- articles end-->
+          </div>
+          {{!-- <div class="text-center">
+            <button class="btn btn-primary secondary-title text-light">Load More Post</button>
+          </div> --}}
+        </div>
+      </section>
+    <!-- Blog Post Section end-->
+      <!-- Swiper Slider start-->
+    <section class="slider">
+      <div class="container">
+        <!-- Slider main container -->
+        <div class="swiper">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <a href="#">
+                <img src="./assets/slider/img1.jpg" class="img-fluid" alt="">
+              </a>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </section>
+  <!-- Swiper Slider end-->
+
+
+
+  </main>
+  <!-- Main Site end-->
 
 
 
@@ -45,6 +106,10 @@
 
   {{!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> --}}
-  <script type="text/javascript" src="src/purify.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js" integrity="sha512-coKEwkkVJR6lO1aL/rJeVFojNKG1DRNbAfuxcvFC98W9TYBO9TQIVFXiHBBx6dRL9+effSNEYIr/5vLe5HENVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <script src="helpers/index-helper.js"></script>  {{!--從外部的helpers/index-helper.js載入js--}}
+
+  <script type="text/javascript" "src/purify.js"></script>
   <script src="https://kit.fontawesome.com/8209e1d203.js" crossorigin="anonymous"></script>
 </body>

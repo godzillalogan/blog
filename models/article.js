@@ -16,6 +16,10 @@ const articleSchema = new mongoose.Schema({
   description:{
     type:String,
   },
+  category: {
+    type: String,
+    required: true
+  },
   markdown:{
     type:String,
     require: true

@@ -1,7 +1,7 @@
 const path = require('path') // 引入 path 套件
 const express = require('express')
 const session = require('express-session')
-// const bodyParser = require('body-parser')  //新版express以內建body-parser
+const bodyParser = require('body-parser')  //新版express以內建body-parser
 const { engine } = require('express-handlebars');
 const flash = require('connect-flash')
 const app = express()
@@ -13,8 +13,8 @@ const usePassport = require('./config/passport') // 載入設定檔，要寫在 
 
 require('./config/mongoose')
 
-app.use(express.urlencoded({ extended:false}))  //Express 升級到了 4.17.1。升級後的 Express 已經內建了 body-parser 這個工具 
-// setting body-parser
+app.use(express.urlencoded({ extended:true}))  //Express 升級到了 4.17.1。升級後的 Express 已經內建了 body-parser 這個工具 
+//setting body-parser
 // app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(methodOverride('_method'))// 設定每一筆請求都會透過 methodOverride 進行前置處理

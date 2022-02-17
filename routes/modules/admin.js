@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Article = require('../../models/article');
+const Category = require('../../models/category');
 const User = require('../../models/user');
 const upload = require('../../middleware/multer') // 載入 multer
 const { localFileHandler } = require('../../helpers/file-helpers') // 將 file-helper 載進來
@@ -101,5 +102,44 @@ router.get('/users/logout', (req, res) => {
   res.redirect('/users/login')
 })
 
+
+//categories
+router.get('/categories', async (req,res)=>{
+  const categories = await Category.find().lean()
+  .sort({createdAt:'desc'})
+  res.render('admin/categories',{categories})
+})
+
+router.get('/categories/new', (req,res)=>{
+  res.render('newCategory')
+})
+
+//Create
+router.post('/categories', async (req,res)=>{
+  console.log(req.body)
+  const errors = []
+  try{
+    const {categoryName} = req.body
+    const categoryExit = await Category.findOne({categoryName}).lean() //去資料庫找是否已經有資料
+    if(categoryExit){ //if去資料庫已經有資料
+      errors.push({message:'已經有這種類了 「(°ヘ°)'})
+      return res.render('newCategory',{errors})
+    }
+    Category.create({...req.body})
+    res.redirect('/admin/categories')
+  } catch(e){
+    console.log(e)
+    res.render('admin/categories')
+  }
+})
+
+//delete
+router.delete('/categories/:id', (req, res) => {
+  const _id = req.params.id
+  return Category.findOne({ _id})
+    .then(category => category.remove())
+    .then(() => res.redirect('/admin/categories'))
+    .catch(error => console.log(error))
+})
 
 module.exports = router

@@ -52,26 +52,16 @@
       </div>
       <div class="col-4">
               <aside id="sidebar" class="px-1 mt-3">
-                <!-- categories -->
-                <section class="categories">
-                  <h2 class="text-center text-dark mb-3">Categories</h2>
-                  <a href="" class="d-flex justify-content-between text-dark">
-                    <span>Design</span>
-                    <span>5</span>
-                  </a>
-                  <a href="" class="d-flex justify-content-between text-dark">
-                    <span>Graphic</span>
-                    <span>8</span>
-                  </a>
-                  <a href="" class="d-flex justify-content-between text-dark">
-                    <span>Illustration</span>
-                    <span>3</span>
-                  </a>
-                  <a href="" class="d-flex justify-content-between text-dark">
-                    <span>Fashion</span>
-                    <span>2</span>
-                  </a>
-                </section>
+                  <!-- categories -->
+                  <section class="categories">
+                    <h2 class="text-center text-dark mb-3">Categories</h2>
+                    {{#each categories}}
+                    <a href="/articles/filter/{{this.categoryEnName}}" class="d-flex justify-content-center text-dark" {{#ifCond this.categoryEnName ../currentCategory}}style="background-color: var(--secondary);color:var(--light)"{{/ifCond}}>
+                      <span>{{this.categoryName}}</span>
+                      {{!-- <span>5</span> --}}
+                    </a>
+                    {{/each}}
+                  </section>
               </aside>
         </div>
     </div>

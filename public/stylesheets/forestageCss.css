@@ -361,8 +361,10 @@ a{
   border-radius: 99px;
 }
 
+
+
 #sidebar .categories a:hover{
-  background-color: var(--primary-color);
+  background-color: var(--secondary);
   color:var(--light)
 }
 /* sidebar page end */

@@ -12,8 +12,10 @@ router.get('/articles', async (req,res)=>{
   res.render('admin/articles',{articles})
 })
 
-router.get('/articles/new', (req,res)=>{
-  res.render('new',{article:new Article()})
+router.get('/articles/new', async (req,res)=>{
+  const categories = await Category.find().lean()
+  .sort({createdAt:'desc'})
+  res.render('new',{article:new Article(),categories})
 })
 
 //Create
@@ -25,7 +27,7 @@ router.post('/articles', upload.single('image'), async (req,res)=>{
   //     markdown: req.body.markdown
   // });
   try{
-    const {title,description,markdown} = req.body
+    const {title,category,description,markdown} = req.body
     const{file} = req
     const filePath = await localFileHandler(file)
 
@@ -41,11 +43,20 @@ router.post('/articles', upload.single('image'), async (req,res)=>{
 ////Update
 //到edit頁
 router.get('/articles/edit/:id', async (req, res) => {
+  // const _id = req.params.id
+  // return Article.findOne({ _id})
+  //   .lean()
+  //   .then((article) => res.render('edit', { article}))
+  //   .catch(error => console.log(error))
+  try{
   const _id = req.params.id
-  return Article.findOne({ _id})
-    .lean()
-    .then((article) => res.render('edit', { article}))
-    .catch(error => console.log(error))
+  const article =  await Article.findOne({ _id}).lean()
+  const categories = await Category.find().lean().sort({createdAt:'desc'})
+  res.render('edit', { article,categories})
+  }catch{
+    console.log(e)
+    res.redirect(`/articles/edit/:id`)
+  }
 })
 
 //edit article
@@ -53,7 +64,7 @@ router.put('/articles/:id', upload.single('image'), async (req, res)=>{
 
   try{
   const _id = req.params.id
-  const { title,description,markdown } = req.body
+  const { title,description,markdown,category } = req.body
   const { file } = req // 把檔案取出來
  
   const article = await Article.findOne({ _id})
@@ -62,6 +73,8 @@ router.put('/articles/:id', upload.single('image'), async (req, res)=>{
   article.title = title
   article.description = description
   article.markdown = markdown
+  article.markdown = markdown
+  article.category = category
   article.image = filePath || article.image 
   await article.save()
   res.redirect('/admin/articles')
@@ -119,9 +132,10 @@ router.post('/categories', async (req,res)=>{
   console.log(req.body)
   const errors = []
   try{
-    const {categoryName} = req.body
+    const {categoryName,categoryEnName} = req.body
     const categoryExit = await Category.findOne({categoryName}).lean() //去資料庫找是否已經有資料
-    if(categoryExit){ //if去資料庫已經有資料
+    const categoryEnNameExit = await Category.findOne({categoryEnName}).lean() //去資料庫找是否已經有資料
+    if(categoryExit || categoryEnNameExit){ //if去資料庫已經有資料
       errors.push({message:'已經有這種類了 「(°ヘ°)'})
       return res.render('newCategory',{errors})
     }

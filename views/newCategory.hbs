@@ -48,8 +48,12 @@
         {{> message}}
         <form action="/admin/categories" method="POST">
           <div class="form-group mb-3">
-            <label for="categoryName">new category</label>
-            <input require value="" type="text" placeholder="categoryName" maxlength="15" name="categoryName" id="categoryName" class="form-control">
+            <label for="categoryName">categoryName</label>
+            <input require value="" type="text" placeholder="categoryName" maxlength="30" name="categoryName" id="categoryName" class="form-control">
+          </div>
+          <div class="form-group mb-3">
+            <label for="categoryEnName">categoryEnName</label>
+            <input require value="" type="text" placeholder="categoryEnName" maxlength="30" name="categoryEnName" id="categoryEnName" class="form-control">
           </div>
           <a href="/admin/categories" class="btn btn-secondary mt-3">Cancel</a>
           <button type="submit" class="btn btn-primary mt-3">Create</button>

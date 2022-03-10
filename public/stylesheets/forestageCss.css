@@ -218,7 +218,8 @@ a{
 }
 
 .nav-link:hover{
-  color:var(--primary-color);
+  color:var(--light);
+  background-color:var(--secondary);
 }
 
 .search-box{

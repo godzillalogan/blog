@@ -371,6 +371,37 @@ a{
 /* sidebar page end */
 
 
+/*about start*/
+.userProfileImg{
+  width: 200px;
+  position: absolute;
+  border-radius: 999em;
+  transform: translate(0,-75px);  /*往上移蓋過cover */
+  z-index: 1;
+  margin-left:5px;  
+}
+.userBackgroundImg{
+  width: 100%;
+}
+.cover {
+   width: 100%; /* whatever width you want for the cover div */
+   height: 400px;
+   background-color: white; /* optional */
+   overflow: hidden;
+}
+
+.profile-name{
+  margin-top: 150px;
+}
+.profile-introduction{
+  margin-top: 30px;
+  width: 1000px;
+  height: 400px;
+}
+
+/*about end*/
+
+
 /* media Query */
 
 .row{

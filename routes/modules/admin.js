@@ -73,7 +73,6 @@ router.put('/articles/:id', upload.single('image'), async (req, res)=>{
   article.title = title
   article.description = description
   article.markdown = markdown
-  article.markdown = markdown
   article.category = category
   article.image = filePath || article.image 
   await article.save()
@@ -102,6 +101,32 @@ router.get('/users', async (req,res)=>{
   const users = await User.find().lean()
   .sort({createdAt:'asc'})
   res.render('admin/users',{users})
+})
+
+//edit user
+router.put('/users/:id', upload.single('avatar'), async (req, res)=>{
+  try{
+  console.log('有到edit user嗎')
+  const _id = req.params.id
+  const { name,avatar,introduction } = req.body
+  const { file } = req // 把檔案取出來
+ 
+  const user = await User.findOne({ _id})
+  const filePath = await localFileHandler(file) // 把檔案傳到 file-helper 處理 
+  
+  user.name = name
+  // user.cover = filePath || user.cover
+  user.avatar = filePath || user.avatar
+  user.introduction = introduction
+  await user.save()
+  res.redirect('/about')
+  }catch(e){
+    console.log(e)
+    res.redirect(`/admin/users`)
+  }
+  // const {title,description,markdown} = req.body   //和new一樣才能將markdown轉成html
+  //   Article.create({...req.body})
+  //   res.redirect('/')
 })
 
 

@@ -49,7 +49,25 @@
         <div class="title border">
           <h5 class="fw-bolder m-3">Blog管理者資料</h5>
         </div>
-
+        <form action="/admin/users/{{user._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="form-group mb-3">
+          <label for="name">Name</label>
+          <input require value="{{user.name}}" type="text" name="name" id="name" class="form-control">
+          </div>
+          {{!-- <div class="form-row mb-3">
+            <label class="form-label" for="image">cover</label>
+            <input  class="form-control" type="file" class="form-control-file" id="cover" name="cover">
+          </div> --}}
+          <div class="form-row mb-3">
+            <label class="form-label" for="image">avatar</label>
+            <input  class="form-control" type="file" class="form-control-file" id="avatar" name="avatar">
+          </div>
+          <div class="form-group">
+            <label for="markdown">Introduction</label>
+            <textarea required name="introduction" id="introduction" class="form-control" rows="15" cols="80">{{user.introduction}}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Save</button>
+        </form>
         
 
         {{!-- <div class="users border-top border-5">

@@ -373,10 +373,11 @@ a{
 
 /*about start*/
 .userProfileImg{
-  width: 200px;
+  width: 250px;
+  height: 250px;
   position: absolute;
   border-radius: 999em;
-  transform: translate(0,-75px);  /*往上移蓋過cover */
+  transform: translate(0,-110px);  /*往上移蓋過cover */
   z-index: 1;
   margin-left:5px;  
 }

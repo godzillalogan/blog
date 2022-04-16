@@ -32,10 +32,15 @@
         <input required type="text" name="email" id="email" class="field" placeholder="Email" >
         <textarea required name="message" id="message" class="field" rows="15" cols="80" placeholder="message"></textarea>
         <button type="submit" class="btn-form mt-1">Submit</button>
+        <p id="submitContactSuccess"></p>
       </form>
     </div>
   </section>
-
+  {{!-- <script>
+    function submitContact() {
+      document.getElementById("submitContactSuccess").innerHTML = "留言送出成功";
+    }
+  </script> --}}
   <script type="text/javascript" src="src/purify.js"></script>
   <script src="https://kit.fontawesome.com/8209e1d203.js" crossorigin="anonymous"></script>
 </body>

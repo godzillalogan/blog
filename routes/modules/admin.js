@@ -3,6 +3,7 @@ const router = express.Router()
 const Article = require('../../models/article');
 const Category = require('../../models/category');
 const User = require('../../models/user');
+const Contact = require('../../models/contact');
 const upload = require('../../middleware/multer') // 載入 multer
 const { localFileHandler } = require('../../helpers/file-helpers') // 將 file-helper 載進來
 
@@ -178,6 +179,22 @@ router.delete('/categories/:id', (req, res) => {
   return Category.findOne({ _id})
     .then(category => category.remove())
     .then(() => res.redirect('/admin/categories'))
+    .catch(error => console.log(error))
+})
+
+////contact
+router.get('/contacts', async (req,res)=>{
+  const contacts = await Contact.find().lean()
+  .sort({createdAt:'asc'})
+  res.render('admin/contacts',{contacts})
+})
+
+////contact   //delete
+router.delete('/contacts/:id', (req, res) => {
+  const _id = req.params.id
+  return Contact.findOne({ _id})
+    .then(contact => contact.remove())
+    .then(() => res.redirect('/admin/contacts'))
     .catch(error => console.log(error))
 })
 

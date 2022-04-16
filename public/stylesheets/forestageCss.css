@@ -57,6 +57,14 @@ a{
   margin:auto;
 }
 
+
+
+.area{
+  min-height:150px;
+}
+
+
+
 .img-fluid{
   width:100%;
 }
@@ -401,6 +409,55 @@ a{
 }
 
 /*about end*/
+
+/*contact start*/
+.container-form {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: auto;
+  /* position :relative; */
+  /* display :flex; */
+  /* justify-content: center; */
+}
+
+.field {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-color: rgba(230, 230, 230, 0.6);
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+  transition: .3s;
+}
+
+.field:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.field:focus {
+  background-color: #fff;
+  border: 2px solid rgba(30, 85, 250, 0.47)
+}
+
+.btn-form{
+  width: 20%;
+  /* display:flex;
+  justify-content: center; */
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  background-color: #2ecc71;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #fff;
+  transition: .3s;
+}
+.btn-form:hover{
+  background-color: #27ae60;
+}
+
+/*contact end*/
 
 
 /* media Query */

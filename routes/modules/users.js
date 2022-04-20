@@ -43,10 +43,12 @@ router.post('/register', async(req, res) =>{
         confirmPassword
       })
     }
-    const user = await User.findOne({ email })
+    // const user = await User.findOne({ email }) //找到email一樣的
+    const user = await User.findOne({}) 
+    console.log('user:',user)
     //如果已經註冊:退回原本畫面
     if(user){
-      errors.push({ message: '這個 Email 已經註冊過了。( ಠ ಠ )' })
+      errors.push({ message: '管理員只能有一個人喔( ಠ ಠ )' })
       res.render('register',{ 
         errors,
         name,

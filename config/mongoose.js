@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
-
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/blog'
 
 // 設定連線到 mongoDB
-mongoose.connect('mongodb://localhost/blog',{ useNewUrlParser: true,useUnifiedTopology: true ,useCreateIndex: true })//增加 useCreateIndex: true,可以沒有錯誤DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
+mongoose.connect(MONGODB_URI,{ useNewUrlParser: true,useUnifiedTopology: true ,useCreateIndex: true })//增加 useCreateIndex: true,可以沒有錯誤DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.
 // mongoose.connect('MONGODB_URI',{ useNewUrlParser: true,useUnifiedTopology: true  })
 // 取得資料庫連線狀態
 const db = mongoose.connection

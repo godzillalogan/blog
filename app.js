@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')  //新版express以內建body-parser
 const { engine } = require('express-handlebars');
 const flash = require('connect-flash')
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 const methodOverride = require('method-override')  // 載入 method-override
 const routes = require('./routes')
 
@@ -50,7 +50,7 @@ app.use(routes)
 
 
 app.listen(PORT, ()=>{
-  console.log('App is running on http://localhost:3000')
+  console.log(`App is running on http://localhost:${PORT}`)
 })
 
 

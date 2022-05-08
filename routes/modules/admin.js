@@ -5,7 +5,14 @@ const Category = require('../../models/category');
 const User = require('../../models/user');
 const Contact = require('../../models/contact');
 const upload = require('../../middleware/multer') // 載入 multer
-const { localFileHandler } = require('../../helpers/file-helpers') // 將 file-helper 載進來
+const { imgurFileHandler } = require('../../helpers/file-helpers') // 將 file-helper 載進來
+
+//載入 imgur 套件
+const imgur = require('imgur-node-api')
+
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+
+
 
 router.get('/articles', async (req,res)=>{
   const articles = await Article.find().lean()
@@ -21,7 +28,7 @@ router.get('/articles/new', async (req,res)=>{
 
 //Create
 router.post('/articles', upload.single('image'), async (req,res)=>{
-  console.log(req.body)
+  // console.log(req.body)
   // const article = new Article({
   //     title: req.body.title,
   //     description: req.body.description,
@@ -30,9 +37,18 @@ router.post('/articles', upload.single('image'), async (req,res)=>{
   try{
     const {title,category,description,markdown} = req.body
     const{file} = req
-    const filePath = await localFileHandler(file)
 
-    Article.create({...req.body, image:filePath || null})
+    console.log('file:',file)
+    if (file){
+      imgur.setClientID(IMGUR_CLIENT_ID)
+      imgur.upload(file.path,(err, img) =>{
+        Article.create({...req.body, image: file ? img.data.link: null})
+      })
+    }else{
+      Article.create({...req.body})
+    }
+   
+    
     res.redirect('/admin/articles')
   } catch(e){
     console.log(e)
@@ -64,20 +80,30 @@ router.get('/articles/edit/:id', async (req, res) => {
 router.put('/articles/:id', upload.single('image'), async (req, res)=>{
 
   try{
-  const _id = req.params.id
-  const { title,description,markdown,category } = req.body
-  const { file } = req // 把檔案取出來
- 
-  const article = await Article.findOne({ _id})
-  const filePath = await localFileHandler(file) // 把檔案傳到 file-helper 處理 
- 
-  article.title = title
-  article.description = description
-  article.markdown = markdown
-  article.category = category
-  article.image = filePath || article.image 
-  await article.save()
-  res.redirect('/admin/articles')
+    const _id = req.params.id
+    const { title,description,markdown,category } = req.body
+    const { file } = req // 把檔案取出來
+    const article = await Article.findOne({ _id})
+    if (file){
+        // const filePath = await imgurFileHandler(file) // 把檔案傳到 file-helper 處理 
+        imgur.setClientID(IMGUR_CLIENT_ID)
+        imgur.upload(file.path,async (err, img) =>{
+        // Article.update({...req.body, image: file ? img.data.link: article.image})
+        article.title = title
+        article.description = description
+        article.markdown = markdown
+        article.category = category
+        article.image = img.data.link
+        await article.save()
+        })
+    }else{
+      article.title = title
+      article.description = description
+      article.markdown = markdown
+      article.category = category
+      await article.save()
+    }
+    res.redirect('/admin/articles')
   }catch(e){
     console.log(e)
     res.redirect(`/admin/articles`)
@@ -107,19 +133,30 @@ router.get('/users', async (req,res)=>{
 //edit user
 router.put('/users/:id', upload.single('avatar'), async (req, res)=>{
   try{
-  console.log('有到edit user嗎')
   const _id = req.params.id
   const { name,avatar,introduction } = req.body
   const { file } = req // 把檔案取出來
  
   const user = await User.findOne({ _id})
-  const filePath = await localFileHandler(file) // 把檔案傳到 file-helper 處理 
-  
-  user.name = name
-  // user.cover = filePath || user.cover
-  user.avatar = filePath || user.avatar
-  user.introduction = introduction
-  await user.save()
+  if (file){
+    // const filePath = await imgurFileHandler(file) // 把檔案傳到 file-helper 處理 
+    
+    imgur.setClientID(IMGUR_CLIENT_ID)
+      imgur.upload(file.path,async (err, img) =>{
+        // Article.update({...req.body, image: file ? img.data.link: article.image})
+        user.name = name
+        // user.cover = filePath || user.cover
+        user.avatar = img.data.link
+        user.introduction = introduction
+        await user.save()
+      })
+  }else{
+    user.name = name
+    // user.cover = filePath || user.cover
+    user.avatar = img.data.link
+    user.introduction = introduction
+    await user.save()
+  }
   res.redirect('/about')
   }catch(e){
     console.log(e)

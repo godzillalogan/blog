@@ -1,13 +1,22 @@
 const path = require('path') // 引入 path 套件
 const express = require('express')
 const session = require('express-session')
+
 const bodyParser = require('body-parser')  //新版express以內建body-parser
 const { engine } = require('express-handlebars');
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {  //要放在const routes = require('./routes')前面
+  require('dotenv').config()
+}
+
+const routes = require('./routes')
+
 const app = express()
 const PORT = process.env.PORT || 3000
 const methodOverride = require('method-override')  // 載入 method-override
-const routes = require('./routes')
+
+
+
 
 const usePassport = require('./config/passport') // 載入設定檔，要寫在 express-session 以後
 

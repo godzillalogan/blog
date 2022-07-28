@@ -42,6 +42,7 @@ const articleSchema = new mongoose.Schema({
     require: true
   }
 })
+
 //Pre middleware functions are executed one after another, when each middleware calls next
 articleSchema.pre('validate',function(next){
   // if(this.title){
@@ -50,11 +51,11 @@ articleSchema.pre('validate',function(next){
   //   strict: true })
   // }
   if(this.markdown){
-    console.log(marked.parse(this.markdown))
+    // console.log(marked.parse(this.markdown))
     this.sanitizedHtml = dompurify.sanitize(marked.parse(this.markdown))//解決bug,加上.parse就可以
   }
+
   // if (this.markdown) {
-  //   console.log(htmlToText('<h1>大型機主</h1>'))
   //   console.log(marked.parse(this.markdown))
   //   this.htmlTurnToText = htmlToText(marked.parse(this.markdown));
   // }

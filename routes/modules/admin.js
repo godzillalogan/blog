@@ -38,7 +38,8 @@ router.post('/articles', upload.single('image'), async (req,res)=>{
     const {title,category,description,markdown} = req.body
     const{file} = req
 
-    console.log('file:',file)
+    // console.log('file:',file)
+    // markdown = markdown.replace(/\s+\r\n/g, "\n\r"); //正則表達式
     if (file){
       imgur.setClientID(IMGUR_CLIENT_ID)
       imgur.upload(file.path,(err, img) =>{
@@ -69,6 +70,12 @@ router.get('/articles/edit/:id', async (req, res) => {
   const _id = req.params.id
   const article =  await Article.findOne({ _id}).lean()
   const categories = await Category.find().lean().sort({createdAt:'desc'})
+  // console.log('article.markdown:',article.markdown)
+  // const newArticle = article.markdown.replace(/\s+/g, '')
+  // console.log('newArticle:',newArticle)
+  // console.log('article:', article)
+  // console.log('article.markdown:', article.markdown)  
+  article.markdown = article.markdown.replace(/\s+\r\n/g, "\n\r"); //正則表達式
   res.render('edit', { article,categories})
   }catch{
     console.log(e)
@@ -94,6 +101,8 @@ router.put('/articles/:id', upload.single('image'), async (req, res)=>{
         article.markdown = markdown
         article.category = category
         article.image = img.data.link
+
+        article.markdown = article.markdown.replace(/\s+\r\n/g, "\n\r"); //正則表達式
         await article.save()
         })
     }else{
@@ -101,6 +110,7 @@ router.put('/articles/:id', upload.single('image'), async (req, res)=>{
       article.description = description
       article.markdown = markdown
       article.category = category
+      article.markdown = article.markdown.replace(/\s+\r\n/g, "\n\r"); //正則表達式 
       await article.save()
     }
     res.redirect('/admin/articles')

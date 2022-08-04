@@ -163,7 +163,7 @@ router.put('/users/:id', upload.single('avatar'), async (req, res)=>{
   }else{
     user.name = name
     // user.cover = filePath || user.cover
-    user.avatar = img.data.link
+    // user.avatar = img.data.link
     user.introduction = introduction
     await user.save()
   }

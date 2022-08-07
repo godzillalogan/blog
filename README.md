@@ -26,6 +26,10 @@
 ![首頁](https://i.imgur.com/7ZMYBwR.png)
 * Administer can manage articles, users ,categories, contact 
 
+## blog content
+![首頁](https://i.imgur.com/oxcCvwN.png)
+* Administer can add and edit blog using markdown
+
 # Environment establishment
 * body-parser: 1.19.1
 * connect-flash": 0.1.1

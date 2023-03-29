@@ -11,7 +11,7 @@
   <select name="category" id="category" class="form-control">
     {{#each categories}}
       <option value="{{this.categoryEnName}}"  
-      {{#ifCond this.categoryName ../article.category}}
+      {{#ifCond this.categoryEnName ../article.category}}
          selected
        {{/ifCond}}>
        {{this.categoryName}}

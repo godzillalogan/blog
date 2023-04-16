@@ -1,15 +1,10 @@
 const express = require('express');
-const User = require('../../models/user');
 const router = express.Router();
-
+const aboutController = require('../../controllers/about-controller')
 
 
 ////user
-router.get('/', async (req,res)=>{
-  const users = await User.find().lean()
-  .sort({createdAt:'asc'})
-  res.render('about',{ users })
-})
+router.get('/', aboutController.aboutPage)
 
 
 module.exports = router;
